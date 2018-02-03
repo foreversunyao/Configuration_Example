@@ -1,0 +1,27 @@
+
+1, open files description and process
+echo “* soft nofile 655350” » /etc/security/limits.conf
+echo “* hard nofile 655350” » /etc/security/limits.conf
+echo “* soft nproc unlimited” » /etc/security/limits.conf
+echo “* hard nproc unlimited” » /etc/security/limits.conf
+cd /proc/pidof mysqld/
+echo -n “Max processes=1031955:1031955” > limits
+2, Decrease the disk write cache
+echo “vm.dirty_writeback_centisecs=100” » /etc/sysctl.conf
+echo “vm.dirty_expire_centisecs=100” » /etc/sysctl.conf
+sysctl -p
+3, Change swap configuration
+echo “vm.swappiness=1” » /etc/sysctl.conf
+sysctl -p
+4, enable rps/rfs
+https://gist.github.com/netmarkjp/4bfc10295ba5193e4039
+5, tcp
+net.ipv4.tcp_max_tw_buckets=260000 —The maximum number of sockets in TIME_WAIT state allowed in the system.
+net.ipv4.tcp_tw_reuse = 1 —depend on “echo 1 > /proc/sys/net/ipv4/tcp_timestamps”
+net.ipv4.tcp_tw_recycle = 0 —Dangerous:reuse not clean tcp connection
+net.ipv4.tcp_fin_timeout = 10 —This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed.
+net.ipv4.ip_local_port_range = 10000 65000 —more ports can be used
+net.core.somaxconn = 65535
+net.core.netdev_max_backlog = 65535
+sys.fs.file_max = 3252969
+nofile = 655350
