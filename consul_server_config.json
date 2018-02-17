@@ -1,0 +1,23 @@
+{
+ "bind_addr": "ip",
+ "datacenter": "sg",
+ "data_dir": "/opt/consul/consul_data",
+ "encrypt": "aaa",
+ "log_level": "info",
+ "pid_file": "/opt/consul/consul_data/consul.pid",
+ "enable_syslog": true,
+ "enable_debug": true,
+ "node_name": "ConsulClient-ip",
+ "server": true,
+ "ui": true,
+ "bootstrap_expect": 3,
+ "leave_on_terminate": false,
+ "skip_leave_on_terminate": true
+ "rejoin_after_leave": true,
+ "retry_join": [
+    "ip",
+    "ip",
+    "ip"
+    ],
+"client_addr":"0.0.0.0"
+ }
